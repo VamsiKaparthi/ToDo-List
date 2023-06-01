@@ -1,5 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Oswald:wght@500&display=swap');
+
+
 body{
     margin: 0;
+    font-family: oswald;
 }
 .content{
     display: grid;
