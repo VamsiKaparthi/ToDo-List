@@ -19,11 +19,13 @@
   "homepage": "https://github.com/VamsiKaparthi/ToDo-List#readme",
   "devDependencies": {
     "css-loader": "^6.8.1",
+    "file-loader": "^6.2.0",
     "style-loader": "^3.3.3",
     "webpack": "^5.85.0",
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.10.5",
     "boxicons": "^2.1.4"
   }
 }
