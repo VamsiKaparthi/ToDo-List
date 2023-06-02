@@ -12,3 +12,14 @@ toggle.addEventListener('click',f);
 quoteGen()
 
 //Control
+let add = document.querySelector('.add')
+let form = document.getElementById('popup-form')
+add.addEventListener('click',()=>{
+    add.style.display='none';
+    form.style.display='flex';
+})
+
+let submit = document.getElementById('submit')
+submit.addEventListener('click',(e)=>{
+    e.preventDefault()
+})

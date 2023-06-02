@@ -30,10 +30,12 @@ body{
     grid-row: 2/3;
     grid-column: 1/2;
     border-right: 0.01vw solid rgb(177, 174, 174);
+    padding: 10px;
 }
 .task-manager{
     grid-row: 2/3;
     grid-column: 2/3;
+    padding: 2px;
 }
 
 .logo{
@@ -50,4 +52,65 @@ i{
     font-size: min(3vw,25px);
     cursor: pointer;
     color: black;
+}
+
+.add{
+    height: 35px;
+    background-color: aliceblue;
+    opacity: 50%;
+    width: 100%;
+    border: 1px dashed black;
+    border-radius: 2px;
+    text-align: center;
+    
+}
+form{
+    display: none;
+    width: 100%;
+}
+fieldset{
+    display: flex;
+    flex-direction: column;
+    width: min(100%,900px);
+    background-color: #fff3d0;
+    border: 1px solid rgb(177, 174, 174);
+    border-radius: 10px;
+}
+input{
+    border: none;
+    background-color: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+input:focus{
+    outline: none;
+
+}
+.features{
+    display: flex;
+    width: 100%;
+    gap: 1%;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+.features>div{
+    border: 1px solid rgb(158, 156, 156);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+}
+.options{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1%;
+}
+button{
+    border: 1px solid rgb(158, 156, 156);
+    outline:none;
+    padding: 5px;
+    cursor: pointer;
+    width: 90px;
+    border-radius: 4px;
+    font-weight: 550;
 }
