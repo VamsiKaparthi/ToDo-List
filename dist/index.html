@@ -38,11 +38,11 @@
                     <div class="features">
                         <div>
                             <label for="due"></label>
-                            <input type="date" id="due" style="width: 80px; color: rgb(133, 130, 130)">
+                            <input type="text" id="due" style="width: 90px;" placeholder="Due Date" onfocus="(this.type ='date')" onblur="this.type='text'">
                         </div>
                         <div>
-                            <label for="priority"></label>
-                            <input list="priority" id="priorities" placeholder="Priority" style="width: 80px; text-align: center;">
+                            <label for="priorities" ></label>
+                            <input list="priority" id="priorities" placeholder="Priority" style="width: 90px; text-align: center;">
                             <datalist id="priority">
                                 <option value="P1">
                                 <option value="P2">
