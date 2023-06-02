@@ -13,9 +13,19 @@ quoteGen()
 
 //Control
 let inbox = [];
-let taskObj = (TaskName,Description,DueDate,Priority)=>{
-    return{TaskName,Description,DueDate,Priority};
+
+let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
+    return{TaskName,Description,DueDate,Priority,status};
 };
+
+let addTask = (task)=>{
+    let taskName = document.getElementById('Task-Name');
+    let desc = document.getElementById('desc');
+    let due = document.getElementById('due');
+    let priority = document.getElementById('priorities');
+    let taskDiv = document.createElement('div');
+
+}
 let add = document.querySelector('.add')
 let form = document.getElementById('popup-form')
 add.addEventListener('click',()=>{
@@ -24,8 +34,9 @@ add.addEventListener('click',()=>{
 })
 let cancel = document.getElementById('cancel')
 cancel.addEventListener('click',()=>{
-    form.style.display='none';
     add.style.display='flex';
+    form.style.display='none';
+    
 })
 let submit = document.getElementById('submit')
 submit.addEventListener('click',(e)=>{
@@ -40,7 +51,7 @@ submit.addEventListener('click',(e)=>{
         alert("Ensure you fill in all fields");
     }
     else{
-        let task = taskObj(taskName.value,desc.value,due.value,priority.value);
+        let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
         inbox.push(task);
         console.log(inbox);
         taskName.value = "";
@@ -50,4 +61,9 @@ submit.addEventListener('click',(e)=>{
         form.style.display='none';
         add.style.display='flex';
     }
+})
+let check = document.querySelector('.check');
+check.addEventListener('click',(e)=>{
+    console.log(e.target.parentElement.parentElement)
+    e.target.parentElement.parentElement.style.display='none';
 })
