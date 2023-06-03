@@ -25,6 +25,7 @@ let addTask = (task)=>{
     let priority = document.getElementById('priorities');
     let tasks = document.querySelector('.tasks');
     let taskDiv = document.createElement('div');
+    taskDiv.setAttribute('id',`${task.TaskName}`)
     tasks.appendChild(taskDiv)
     taskDiv.classList.add('task');
     let background = ''
@@ -51,7 +52,9 @@ let addTask = (task)=>{
     let checkBox = document.getElementById(`task-${i}`);
     checkBox.addEventListener('click',(e)=>{
         e.target.parentElement.parentElement.style.display = 'none';
+        inbox = inbox.splice(inbox.indexOf(task.TaskName),1);
     });
+    console.log(inbox);
     i++;
 }
 let add = document.querySelector('.add')
