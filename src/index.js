@@ -28,7 +28,6 @@ function taskFill(array){
     tasks.innerHTML=``
     let i = 0;
     for (let index = 0; index < array.length; index++) {
-        
         let task = array[index]
         let taskName = task.TaskName;
         let taskDesc = task.Description;
@@ -69,9 +68,9 @@ function taskFill(array){
                         <input type="text" id="due-e-${index}" style="width: 90px;" placeholder="Due Date" onfocus="(this.type ='date')" onblur="this.type='text'">
                     </div>
                     <div>
-                        <label for="priorities-e" ></label>
-                        <input list="priority" id="priorities-e" placeholder="Priority" style="width: 90px; text-align: center;">
-                        <datalist id="priority">
+                        <label for="priorities-e-${index}" ></label>
+                        <input list="priority-${index}" id="priorities-e-${index}" placeholder="Priority" style="width: 90px; text-align: center;">
+                        <datalist id="priority-${index}">
                             <option value="P1">
                             <option value="P2">
                             <option value="P3">
@@ -86,7 +85,7 @@ function taskFill(array){
             </fieldset>
         </form>`
 
-        
+
         //Add checkBox to each taskDiv to remove it on click
         let checkBox = document.getElementById(`${i}`);
         checkBox.addEventListener('click',(e)=>{
@@ -107,14 +106,17 @@ function taskFill(array){
             document.getElementById(`Task-Name-e-${index}`).value = task.TaskName;
             document.getElementById(`desc-e-${index}`).value = task.Description;
             document.getElementById(`due-e-${index}`).value = task.DueDate;
-            
+            document.getElementById(`priorities-e-${index}`).value = task.Priority;
+
+            //Submit button in form
             document.getElementById(`submit-e-${index}`).addEventListener('click',(e)=>{
                 e.preventDefault();
                 task.TaskName = document.getElementById(`Task-Name-e-${index}`).value ;
                 task.Description = document.getElementById(`desc-e-${index}`).value;
-                task.DueDate = document.getElementById(`due-e-${index}`).value ;
-                console.log(inbox);
+                task.DueDate = document.getElementById(`due-e-${index}`).value;
+                task.Priority = document.getElementById(`priorities-e-${index}`).value;
                 taskFill(inbox);
+                console.log(inbox);
             })
         })
         i++;
