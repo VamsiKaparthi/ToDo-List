@@ -19,9 +19,7 @@ let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
 };
 
 
-
 //taskFill-> Will monitor the project Array constantly for changes
-
 function taskFill(array){
     const tasks = document.querySelector('.tasks');
     //clear innerHtml to avoid duplicating tasks
@@ -37,11 +35,11 @@ function taskFill(array){
     
         let taskDiv = document.createElement('div')
         taskDiv.classList.add('task-structure');
-        
+        taskDiv.setAttribute('id',`task-${index}`)
         tasks.appendChild(taskDiv);
-    
+        
         taskDiv.innerHTML = 
-        `<div class="task">
+        `<div class="task" id="innerTask-${index}">
             <div style="display: flex; align-items: center;">
                 <div class="check" id='${i}'></div>
                 <div class="desc">${taskName}</div>
@@ -85,6 +83,19 @@ function taskFill(array){
             </fieldset>
         </form>`
 
+        let taskInner = document.getElementById(`innerTask-${index}`)
+        if(taskPriority == 'P1'){
+            taskInner.style.border = '2px solid red'
+        }
+        else if(taskPriority == 'P2'){
+            taskInner.style.border = '2px solid #fa592f'
+        }
+        else if(taskPriority == 'P3'){
+            taskInner.style.border = '2px solid blue'
+        }
+        else{
+            
+        }
 
         //Add checkBox to each taskDiv to remove it on click
         let checkBox = document.getElementById(`${i}`);
@@ -101,14 +112,15 @@ function taskFill(array){
             let formIndex = parseInt(e.target.id.split('-')[1]);
             let editForm = document.getElementById(`form-${formIndex}`);
             console.log(editForm);
-            e.target.parentElement.parentElement.style.display='none';
+            let taskDiv = e.target.parentElement.parentElement;
+            taskDiv.style.display = 'none';
             editForm.style.display = 'flex';
             document.getElementById(`Task-Name-e-${index}`).value = task.TaskName;
             document.getElementById(`desc-e-${index}`).value = task.Description;
             document.getElementById(`due-e-${index}`).value = task.DueDate;
             document.getElementById(`priorities-e-${index}`).value = task.Priority;
 
-            //Submit button in form
+            //Submit Button in Edit-Form
             document.getElementById(`submit-e-${index}`).addEventListener('click',(e)=>{
                 e.preventDefault();
                 task.TaskName = document.getElementById(`Task-Name-e-${index}`).value ;
@@ -118,11 +130,17 @@ function taskFill(array){
                 taskFill(inbox);
                 console.log(inbox);
             })
+
+            //Cancel Button in Edit-Form
+            document.getElementById(`cancel-e-${index}`).addEventListener('click',(e)=>{
+                e.preventDefault();
+                editForm.style.display='none';
+                taskDiv.style.display = 'flex';
+            })
         })
         i++;
     }
 }
-
 
 let add = document.querySelector('.add')
 let form = document.getElementById('popup-form')
@@ -142,8 +160,8 @@ submit.addEventListener('click',(e)=>{
     let desc = document.getElementById('desc');
     let due = document.getElementById('due');
     let priority = document.getElementById('priorities');
-    if(!taskName.value||!due.value||!priority.value){
-        alert("Ensure you fill in all fields");
+    if(!taskName.value){
+        alert("Ensure you fill in taskName");
     }
     else{
         let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
