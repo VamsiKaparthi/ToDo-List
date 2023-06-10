@@ -24,18 +24,54 @@
         </div>
         <div class="task-manager">
             <div class="tasks">
-                <div class="task">
-                    <div style="display: flex; align-items: center;">
-                        <div class="check"></div>
-                        <div class="desc">Make Dinner</div>
+                <div class="task-structure">
+                    <div class="task">
+                        <div style="display: flex; align-items: center;">
+                            <div class="check"></div>
+                            <div class="desc">Make Dinner</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div class="due-date"></div>
+                            <box-icon type='solid' name='edit' style="height: 28px; width: auto;"></box-icon>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 5px;">
-                        <div class="due-date"></div>
-                        <box-icon type='solid' name='edit' style="height: 28px; width: auto; opacity: 50%;"></box-icon>
-                    </div>
-                    
+                    <form class="edit">
+                        <fieldset>
+                            <div>
+                                <label for="Task-Name-e"></label>
+                                <input type="text" id="Task-Name-e" placeholder="Task Name" style="font-size: max(16px,1vw);">
+                            </div>
+                            <div>
+                                <label for="desc-e"></label>
+                                <input type="text" id="desc-e" placeholder="Description" style=" height: 25px; font-size: max(15px,0.9vw); margin-bottom: 10px;">
+                            </div>
+                            <div class="features">
+                                <div>
+                                    <label for="due-e"></label>
+                                    <input type="text" id="due-e" style="width: 90px;" placeholder="Due Date" onfocus="(this.type ='date')" onblur="this.type='text'">
+                                </div>
+                                <div>
+                                    <label for="priorities-e" ></label>
+                                    <input list="priority" id="priorities-e" placeholder="Priority" style="width: 90px; text-align: center;">
+                                    <datalist id="priority">
+                                        <option value="P1">
+                                        <option value="P2">
+                                        <option value="P3">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="options">
+                                <button type="submit" id="submit-e" style="background-color: #f86234;">Add Task</button>
+                                <button type="reset" style="background-color: #04c4ad;">Reset</button>
+                                <button id="cancel-e" style="background-color: #ee9694;">Cancel</button>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
+
+            
+                
             <div class="add">Add task</div>
             <form id="popup-form">
                 <fieldset>
