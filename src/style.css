@@ -66,7 +66,7 @@ i{
     justify-content: center;
     
 }
-form{
+#popup-form{
     display: none;
     width: 100%;
 }
@@ -123,7 +123,7 @@ button{
     font-weight: 550;
 }
 .task{
-    background-color: #fcbf0e;
+    
     height: 45px;
     display: flex;
     align-items: center;
@@ -133,6 +133,10 @@ button{
     font-size: 22px;
     color: black;
     justify-content: space-between;
+}
+.task-structure{
+    border-radius: 10px;
+    background-color: #fcbf0e;
 }
 .check{
     height: 16px;
@@ -168,4 +172,12 @@ button{
     display: flex;
     flex-direction: column;
     gap: 2px;
+}
+.edit{
+    width: 100%;
+    background-color: #fff3d0;
+    display: none;
+}
+.edit>fieldset{
+    width: 100%;
 }
