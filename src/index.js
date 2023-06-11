@@ -93,9 +93,6 @@ function taskFill(array){
         else if(taskPriority == 'P3'){
             taskInner.style.border = '2px solid blue'
         }
-        else{
-            
-        }
 
         //Add checkBox to each taskDiv to remove it on click
         let checkBox = document.getElementById(`${i}`);
@@ -177,4 +174,35 @@ submit.addEventListener('click',(e)=>{
         add.style.display='flex';
     }
 })
+//Handle Projects
+
+//create Projects
+function projectObj(projectName){
+    this.projectName = projectName;
+    this.taskArray = [];
+}
+let pro1 = new projectObj('hola')
+pro1.taskArray.push('helo')
+pro1.taskArray.push('hola')
+
+let pro2 = new projectObj('op')
+pro2.taskArray.push('hiua');
+
+//Fill projects in Dom
+const projectFill = (array)=>{
+    let projectBay = document.querySelector('.project-bay');
+    for(let i = 0; i<array.length; i++){
+        //Add project Html
+        let projectName = array[i].projectName;
+        let taskArray = array[i].taskArray;
+        let projectDiv = document.createElement('div')
+        projectDiv.classList.add('projectBox')
+        projectBay.appendChild(projectDiv);
+        projectDiv.innerHTML = 
+        `<span>${projectName}</span>
+         <span style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`    
+    }
+}
+
+projectFill([pro1,pro2]);
 
