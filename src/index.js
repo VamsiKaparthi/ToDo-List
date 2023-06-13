@@ -18,6 +18,9 @@ let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
     return{TaskName,Description,DueDate,Priority,status};
 };
 
+const work = (project)=>{
+    
+}
 
 //taskFill-> Will monitor the project Array constantly for changes
 function taskFill(array){
@@ -124,18 +127,28 @@ function taskFill(array){
                 task.Description = document.getElementById(`desc-e-${index}`).value;
                 task.DueDate = document.getElementById(`due-e-${index}`).value;
                 task.Priority = document.getElementById(`priorities-e-${index}`).value;
-                taskFill(inbox);
-                console.log(inbox);
+                taskFill(array);
+                console.log(array);
             })
 
             //Cancel Button in Edit-Form
             document.getElementById(`cancel-e-${index}`).addEventListener('click',(e)=>{
                 e.preventDefault();
+                let taskName = document.getElementById('Task-Name');
+                let desc = document.getElementById('desc');
+                let due = document.getElementById('due');
+                let priority = document.getElementById('priorities');
+                taskName.value = "";
+                desc.value = "";
+                due.value = "";
+                priority.value = "";
                 editForm.style.display='none';
                 taskDiv.style.display = 'flex';
             })
         })
         i++;
+
+        
     }
 }
 
@@ -146,61 +159,125 @@ add.addEventListener('click',()=>{
     form.style.display='flex';
 })
 let cancel = document.getElementById('cancel')
-cancel.addEventListener('click',()=>{
-    add.style.display='flex';
-    form.style.display='none';
-})
-let submit = document.getElementById('submit')
-submit.addEventListener('click',(e)=>{
-    e.preventDefault()
+cancel.addEventListener('click',(e)=>{
+    e.preventDefault();
     let taskName = document.getElementById('Task-Name');
     let desc = document.getElementById('desc');
     let due = document.getElementById('due');
     let priority = document.getElementById('priorities');
-    if(!taskName.value){
-        alert("Ensure you fill in taskName");
-    }
-    else{
-        let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
-        inbox.push(task);
-        //taskFill(empty);
-        taskFill(inbox);
-        console.log(inbox);
-        taskName.value = "";
-        desc.value = "";
-        due.value="";
-        priority.value="";
-        form.style.display='none';
-        add.style.display='flex';
-    }
+    taskName.value = "";
+    desc.value = "";
+    due.value = "";
+    priority.value = "";
+    add.style.display='flex';
+    form.style.display='none';
 })
+let submit = document.getElementById('submit')
+// submit.addEventListener('click',(e)=>{
+//     e.preventDefault()
+//     let taskName = document.getElementById('Task-Name');
+//     let desc = document.getElementById('desc');
+//     let due = document.getElementById('due');
+//     let priority = document.getElementById('priorities');
+//     if(!taskName.value){
+//         alert("Ensure you fill in taskName");
+//     }
+//     else{
+//         let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
+//         inbox.push(task);
+//         //taskFill(empty);
+//         taskFill(inbox);
+//         console.log(inbox);
+//         taskName.value = "";
+//         desc.value = "";
+//         due.value="";
+//         priority.value="";
+//         form.style.display='none';
+//         add.style.display='flex';
+//     }
+// })
 //Handle Projects
 
 //create Projects
-function projectObj(projectName){
+function projectObj(projectName,taskArray){
     this.projectName = projectName;
-    this.taskArray = [];
+    this.taskArray = taskArray || [];
 }
 let pro1 = new projectObj('hola')
-pro1.taskArray.push('helo')
-pro1.taskArray.push('hola')
+pro1.taskArray.push({
+    TaskName: "Buy groceries",
+    Description: "Get milk, eggs, and bread from the supermarket",
+    DueDate: "2023-06-12",
+    Priority: "P3",
+    status: "incomplete"
+  })
+pro1.taskArray.push({
+    TaskName: "Complete homework",
+    Description: "Finish math assignment and submit it",
+    DueDate: "2023-06-15",
+    Priority: "P2",
+    status: "incomplete"
+  })
 
 let pro2 = new projectObj('op')
-pro2.taskArray.push('hiua');
+pro2.taskArray.push({
+    TaskName: "Prepare presentation",
+    Description: "Create slides and practice delivery",
+    DueDate: "2023-06-18",
+    Priority: "P1",
+    status: "incomplete"
+  });
 
 //Fill projects in Dom
+
+
 const projectFill = (array)=>{
     let projectBay = document.querySelector('.project-bay');
     for(let i = 0; i<array.length; i++){
         //Add project Html
-        let projectName = array[i].projectName;
-        let taskArray = array[i].taskArray;
+        let project = array[i];
+        let projectName = project.projectName;
+        let taskArray = project.taskArray;
         let projectDiv = document.createElement('div')
         projectDiv.classList.add('projectBox')
         projectBay.appendChild(projectDiv);
         projectDiv.innerHTML = 
         `<span>${projectName}</span>
-         <span style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`    
+        <span style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`    
+
+        projectDiv.addEventListener('click',()=>{
+            taskFill(taskArray);
+            //Cloning and replacing submit with clone so that the eventListener gets removed
+            let submit = document.getElementById('submit');
+            let newSubmit = submit.cloneNode(true);
+            submit.parentNode.replaceChild(newSubmit, submit);
+            submit = newSubmit;
+            submit.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log(taskArray);
+                let taskName = document.getElementById('Task-Name');
+                let desc = document.getElementById('desc');
+                let due = document.getElementById('due');
+                let priority = document.getElementById('priorities');
+                if (!taskName.value) {
+                  alert("taskName where");
+                } 
+                else {
+                  let task = taskObj(taskName.value, desc.value, due.value, priority.value, "incomplete");
+                  taskArray.push(task);
+                  taskFill(taskArray);
+                  console.log(taskArray);
+                  taskName.value = "";
+                  desc.value = "";
+                  due.value = "";
+                  priority.value = "";
+                  form.style.display = 'none';
+                  add.style.display = 'flex';
+                }
+              });
+        })
+
+        
     }
 }
 
