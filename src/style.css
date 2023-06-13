@@ -2,11 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Oswald:wght@500&display=swap');
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
-
+/*Using Css variables for dark mode*/
+:root{
+    --bg-color: antiquewhite;
+    --font-color: black;
+    --task-color: #fcbf0e;
+}
+.dark{
+    --bg-color: black;
+    --font-color: white;
+    --task-color: #967208;
+}
 body{
     margin: 0;
     font-family: oswald;
-    background-color: antiquewhite;
+    background-color: var(--bg-color);
+    color: var(--font-color);
 }
 .content{
     display: grid;
@@ -55,20 +66,22 @@ body{
 i{
     font-size: min(3vw,25px);
     cursor: pointer;
-    color: black;
+    color: var(--font-color);
 }
 
 .add{
     height: 35px;
-    background-color: aliceblue;
-    opacity: 50%;
     width: 100%;
-    border: 1px dashed black;
+    color: var(--font-color);
+    border: 1px solid var(--font-color);
     border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+}
+.add:hover{
+    background-color: var(--font-color);
+    color:  var(--bg-color);
 }
 #popup-form{
     display: none;
@@ -127,7 +140,7 @@ button{
     font-weight: 550;
 }
 .task{
-    
+    color: var(--font-color);
     height: 45px;
     display: flex;
     align-items: center;
@@ -135,12 +148,12 @@ button{
     padding-left: 15px;
     padding-right: 15px;
     font-size: 22px;
-    color: black;
+    
     justify-content: space-between;
 }
 .task-structure{
     border-radius: 10px;
-    background-color: #fcbf0e;
+    background-color: var(--task-color);
 }
 .check{
     height: 16px;
@@ -179,7 +192,7 @@ button{
 }
 .edit{
     width: 100%;
-    background-color: #fff3d0;
+    background-color: var(--font-color);
     border-radius: 10px;
     display: none;
 }
@@ -209,7 +222,8 @@ button{
     box-sizing: border-box;
     height: 187px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--font-color);
     border: 1px solid rgb(177, 174, 174);
     display: flex;
     justify-content: center;
@@ -228,8 +242,8 @@ button{
 
 #projectAddForm{
     display: none;
-    background-color: white;
-    border: 1px solid black;
+    background-color:white;
+    border: 1px solid var(--font-color);
     position: absolute;
     right: 50%;
     left: 50%;
@@ -242,7 +256,8 @@ button{
 }
 #projectAddForm>input{
     height: 30px;
-    background-color: #ffffff;
+    background-color: white;
     width: 80%;
     border: 1px solid black;
 }
+

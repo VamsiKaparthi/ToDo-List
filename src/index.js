@@ -263,10 +263,11 @@ const projectFill = (array)=>{
         projectBay.appendChild(projectDiv);
         projectDiv.innerHTML = 
         `<span>${projectName}</span>
-        <span style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`    
+        <span id='projectNo-${i}' style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`    
 
         projectDiv.addEventListener('click',()=>{
             taskFill(taskArray);
+            document.getElementById(`projectNo-${i}`).innerText = `${taskArray.length} tasks remaining`
             //Cloning and replacing submit with clone so that the eventListener gets removed
             let submit = document.getElementById('submit');
             let newSubmit = submit.cloneNode(true);
@@ -285,6 +286,7 @@ const projectFill = (array)=>{
                 else {
                   let task = taskObj(taskName.value, desc.value, due.value, priority.value, "incomplete");
                   taskArray.push(task);
+                  document.getElementById(`projectNo-${i}`).innerText = `${taskArray.length} tasks remaining`
                   taskFill(taskArray);
                   console.log(taskArray);
                   taskName.value = "";
@@ -293,7 +295,6 @@ const projectFill = (array)=>{
                   priority.value = "";
                   form.style.display = 'none';
                   add.style.display = 'flex';
-                  
                 }
               });
         })
