@@ -21,11 +21,21 @@
         <div class="control">
             <div class="inbox">INBOX</div>
             <div class="project">
-                <span>PROJECTS</span>
-                <div class="project-bay">
-
+                <div class="projects-title">
+                    <span>PROJECTS</span>
+                    <box-icon id='addProject' type='solid' name='plus-square' size="35px" color="#fa592f"></box-icon>
                 </div>
+                <form id="projectAddForm">
+                    <label for="projectName"></label>
+                    <input type="text" id="projectName" placeholder="Project Name">
+                    <div style="display: flex; justify-content: space-between; width: 88%;">
+                        <box-icon id='submitProject' name='check-square' size="40px"></box-icon>
+                        <box-icon id='cancelProject' type='solid' name='x-square' size="40px"></box-icon>
+                    </div>
+                </form>
+                <div class="project-bay"></div>
             </div>
+            
         </div>
         <div class="task-manager">
             <div class="tasks">
