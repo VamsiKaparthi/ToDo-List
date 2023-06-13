@@ -218,3 +218,31 @@ button{
     font-size: smaller;
     font-weight: 300;
 }
+
+.projects-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: max(35px,2vw);
+}
+
+#projectAddForm{
+    display: none;
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    right: 50%;
+    left: 50%;
+    top: 30%;
+    padding: 10px;
+    width: 200px;
+    z-index: 9999;
+    flex-direction: column;
+    align-items: center;
+}
+#projectAddForm>input{
+    height: 30px;
+    background-color: #ffffff;
+    width: 80%;
+    border: 1px solid black;
+}

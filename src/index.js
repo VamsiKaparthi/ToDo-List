@@ -14,6 +14,7 @@ quoteGen()
 //Control
 let inbox = [];
 let empty = [];
+let projectList = [];
 let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
     return{TaskName,Description,DueDate,Priority,status};
 };
@@ -203,6 +204,25 @@ function projectObj(projectName,taskArray){
     this.projectName = projectName;
     this.taskArray = taskArray || [];
 }
+document.getElementById('addProject').addEventListener('click',()=>{
+    console.log('hi');
+    document.getElementById('projectAddForm').style.display='flex';
+})
+document.getElementById('cancelProject').addEventListener('click',()=>{
+    document.getElementById('projectAddForm').style.display='none';
+})
+document.getElementById('submitProject').addEventListener('click',()=>{
+    let projectName = document.getElementById('projectName').value;
+    if(projectName==""){
+        alert('Enter Project Name to submit');
+    }
+    else{
+        let project = new projectObj(projectName);
+        projectList.push(project);
+        projectFill(projectList);
+        document.getElementById('projectAddForm').style.display='none';
+    }
+})
 let pro1 = new projectObj('hola')
 pro1.taskArray.push({
     TaskName: "Buy groceries",
@@ -227,12 +247,12 @@ pro2.taskArray.push({
     Priority: "P1",
     status: "incomplete"
   });
-
+projectList.push(pro1);
+projectList.push(pro2);
 //Fill projects in Dom
-
-
 const projectFill = (array)=>{
     let projectBay = document.querySelector('.project-bay');
+    projectBay.innerHTML = '';
     for(let i = 0; i<array.length; i++){
         //Add project Html
         let project = array[i];
@@ -273,13 +293,12 @@ const projectFill = (array)=>{
                   priority.value = "";
                   form.style.display = 'none';
                   add.style.display = 'flex';
+                  
                 }
               });
         })
-
-        
     }
 }
 
-projectFill([pro1,pro2]);
+projectFill(projectList);
 
