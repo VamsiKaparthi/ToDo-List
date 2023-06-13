@@ -19,10 +19,6 @@ let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
     return{TaskName,Description,DueDate,Priority,status};
 };
 
-const work = (project)=>{
-    
-}
-
 //taskFill-> Will monitor the project Array constantly for changes
 function taskFill(array){
     const tasks = document.querySelector('.tasks');
@@ -148,8 +144,6 @@ function taskFill(array){
             })
         })
         i++;
-
-        
     }
 }
 
@@ -173,30 +167,64 @@ cancel.addEventListener('click',(e)=>{
     add.style.display='flex';
     form.style.display='none';
 })
-let submit = document.getElementById('submit')
-// submit.addEventListener('click',(e)=>{
-//     e.preventDefault()
-//     let taskName = document.getElementById('Task-Name');
-//     let desc = document.getElementById('desc');
-//     let due = document.getElementById('due');
-//     let priority = document.getElementById('priorities');
-//     if(!taskName.value){
-//         alert("Ensure you fill in taskName");
-//     }
-//     else{
-//         let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
-//         inbox.push(task);
-//         //taskFill(empty);
-//         taskFill(inbox);
-//         console.log(inbox);
-//         taskName.value = "";
-//         desc.value = "";
-//         due.value="";
-//         priority.value="";
-//         form.style.display='none';
-//         add.style.display='flex';
-//     }
-// })
+
+//default project open is inbox
+let submit = document.getElementById('submit');
+submit.addEventListener('click',(e)=>{
+    e.preventDefault()
+    let taskName = document.getElementById('Task-Name');
+    let desc = document.getElementById('desc');
+    let due = document.getElementById('due');
+    let priority = document.getElementById('priorities');
+    if(!taskName.value){
+        alert("Ensure you fill in taskName");
+    }
+    else{
+        let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
+        inbox.push(task);
+        //taskFill(empty);
+        taskFill(inbox);
+        console.log(inbox);
+        taskName.value = "";
+        desc.value = "";
+        due.value="";
+        priority.value="";
+        form.style.display='none';
+        add.style.display='flex';
+    }
+})
+taskFill(inbox);
+
+document.querySelector('.inbox').addEventListener('click',()=>{
+    taskFill(inbox);
+    let submit = document.getElementById('submit');
+    let newSubmit = submit.cloneNode(true);
+    submit.parentNode.replaceChild(newSubmit, submit);
+    submit = newSubmit;
+    submit.addEventListener('click',(e)=>{
+        e.preventDefault()
+        let taskName = document.getElementById('Task-Name');
+        let desc = document.getElementById('desc');
+        let due = document.getElementById('due');
+        let priority = document.getElementById('priorities');
+        if(!taskName.value){
+            alert("Ensure you fill in taskName");
+        }
+        else{
+            let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
+            inbox.push(task);
+            //taskFill(empty);
+            taskFill(inbox);
+            console.log(inbox);
+            taskName.value = "";
+            desc.value = "";
+            due.value="";
+            priority.value="";
+            form.style.display='none';
+            add.style.display='flex';
+        }
+    })
+})
 //Handle Projects
 
 //create Projects
