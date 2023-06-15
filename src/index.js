@@ -18,7 +18,9 @@ let projectList = [];
 let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
     return{TaskName,Description,DueDate,Priority,status};
 };
-
+if(localStorage.getItem('arr')){
+    console.log(localStorage.getItem('arr'));
+}
 //taskFill-> Will monitor the project Array constantly for changes
 function taskFill(array){
     const tasks = document.querySelector('.tasks');
@@ -191,6 +193,7 @@ submit.addEventListener('click',(e)=>{
         priority.value="";
         form.style.display='none';
         add.style.display='flex';
+        localStorage.setItem('arr',inbox);
     }
 })
 taskFill(inbox);

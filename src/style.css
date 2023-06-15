@@ -148,7 +148,6 @@ button{
     padding-left: 15px;
     padding-right: 15px;
     font-size: 22px;
-    
     justify-content: space-between;
 }
 .task-structure{
@@ -173,12 +172,13 @@ button{
 .due-date{
     height: 22px;
     width: 80px;
-    background-color: white;
+    background-color: var(--bg-color);
     border: 1px solid rgb(158, 156, 156);
     border-radius: 4px;
     opacity: 80%;
     font-size: 13px;
     text-align: center;
+    color: var(--font-color);
 }
 .task-manager{
     display: flex;
