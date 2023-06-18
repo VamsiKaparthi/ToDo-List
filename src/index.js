@@ -332,8 +332,10 @@ const projectFill = (array)=>{
         let projectDiv = document.createElement('div')
         projectDiv.classList.add('projectBox')
         projectBay.appendChild(projectDiv);
+        projectDiv.setAttribute('id',`project-${i}`)
         projectDiv.innerHTML =
-        `<span>${projectName}</span>
+        `<span class = 'delProj' id=delete-${i}><i class="bi bi-x-circle-fill"></i></span>
+        <span>${projectName}</span>
         <span id='projectNo-${i}' style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`
 
         projectDiv.addEventListener('click',()=>{
@@ -368,7 +370,17 @@ const projectFill = (array)=>{
                   form.style.display = 'none';
                   add.style.display = 'flex';
                 }
-              });
+            });
+        })
+        document.getElementById(`delete-${i}`).addEventListener('click',(e)=>{
+            e.stopPropagation();
+            console.log(e.target.parentElement.parentElement);
+            e.target.parentElement.parentElement.style.display = 'none';
+            const index = parseInt(e.target.parentElement.id.split('-')[1]);
+            console.log(index);
+            projectList.splice(index,1)
+            console.log(projectList);
+            storeArr('projectList',projectList);
         })
     }
 }

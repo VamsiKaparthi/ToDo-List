@@ -231,6 +231,7 @@ button{
     flex-direction: column;
     font-size: smaller;
     font-weight: 300;
+    position: relative;
 }
 
 .projects-title{
@@ -261,3 +262,8 @@ button{
     border: 1px solid black;
 }
 
+.delProj{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
