@@ -267,10 +267,7 @@ document.querySelector('.inbox').addEventListener('click',()=>{
 })
 //Handle Projects
 
-
-
 document.getElementById('addProject').addEventListener('click',()=>{
-    console.log('hi');
     document.getElementById('projectAddForm').style.display='flex';
 })
 document.getElementById('cancelProject').addEventListener('click',()=>{
@@ -286,7 +283,7 @@ document.getElementById('submitProject').addEventListener('click',()=>{
         projectList.push(project);
         projectFill(projectList);
         storeArr('projectList',projectList);
-        console.log(projectList);
+        document.getElementById('projectName').value = "";
         document.getElementById('projectAddForm').style.display='none';
     }
 })
@@ -325,7 +322,6 @@ const projectFill = (array)=>{
     projectBay.innerHTML = '';
     for(let i = 0; i<array.length; i++){
         //Add project Html
-
         let project = array[i];
         let projectName = project.projectName;
         let taskArray = project.taskArray;
@@ -373,7 +369,7 @@ const projectFill = (array)=>{
             });
         })
         document.getElementById(`delete-${i}`).addEventListener('click',(e)=>{
-            e.stopPropagation();
+            
             console.log(e.target.parentElement.parentElement);
             e.target.parentElement.parentElement.style.display = 'none';
             const index = parseInt(e.target.parentElement.id.split('-')[1]);
