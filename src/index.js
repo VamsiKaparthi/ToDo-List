@@ -2,6 +2,12 @@ import './style.css';
 import 'boxicons';
 import {f,quoteGen} from './functions/headerFunctions.js';
 
+//local storage
+function storeArr(key,array){
+    let string = JSON.stringify(array);
+    localStorage.setItem(key,string);
+}
+
 //Header
 
 //dark light mode toggle
@@ -14,7 +20,17 @@ quoteGen()
 //Control
 let inbox = [];
 let empty = [];
-let projectList = [];
+let projectList;
+
+if(localStorage.getItem('projectList')){
+    let string = localStorage.getItem('projectList');
+    projectList = JSON.parse(string);
+    console.log(projectList);
+}
+else{
+    projectList = [];
+}
+
 let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
     return{TaskName,Description,DueDate,Priority,status};
 };
@@ -34,13 +50,13 @@ function taskFill(array){
         let taskDue = task.DueDate;
         let taskPriority = task.Priority;
         let taskStatus = task.status;
-    
+
         let taskDiv = document.createElement('div')
         taskDiv.classList.add('task-structure');
         taskDiv.setAttribute('id',`task-${index}`)
         tasks.appendChild(taskDiv);
-        
-        taskDiv.innerHTML = 
+
+        taskDiv.innerHTML =
         `<div class="task" id="innerTask-${index}">
             <div style="display: flex; align-items: center;">
                 <div class="check" id='${i}'></div>
@@ -127,6 +143,7 @@ function taskFill(array){
                 task.DueDate = document.getElementById(`due-e-${index}`).value;
                 task.Priority = document.getElementById(`priorities-e-${index}`).value;
                 taskFill(array);
+                storeArr('projectList',projectList);
                 console.log(array);
             })
 
@@ -235,6 +252,7 @@ function projectObj(projectName,taskArray){
     this.projectName = projectName;
     this.taskArray = taskArray || [];
 }
+
 document.getElementById('addProject').addEventListener('click',()=>{
     console.log('hi');
     document.getElementById('projectAddForm').style.display='flex';
@@ -251,50 +269,56 @@ document.getElementById('submitProject').addEventListener('click',()=>{
         let project = new projectObj(projectName);
         projectList.push(project);
         projectFill(projectList);
+        storeArr('projectList',projectList);
+        console.log(projectList);
         document.getElementById('projectAddForm').style.display='none';
     }
 })
-let pro1 = new projectObj('hola')
-pro1.taskArray.push({
-    TaskName: "Buy groceries",
-    Description: "Get milk, eggs, and bread from the supermarket",
-    DueDate: "2023-06-12",
-    Priority: "P3",
-    status: "incomplete"
-  })
-pro1.taskArray.push({
-    TaskName: "Complete homework",
-    Description: "Finish math assignment and submit it",
-    DueDate: "2023-06-15",
-    Priority: "P2",
-    status: "incomplete"
-  })
+// let pro1 = new projectObj('hola')
+// pro1.taskArray.push({
+//     TaskName: "Buy groceries",
+//     Description: "Get milk, eggs, and bread from the supermarket",
+//     DueDate: "2023-06-12",
+//     Priority: "P3",
+//     status: "incomplete"
+//   })
+// pro1.taskArray.push({
+//     TaskName: "Complete homework",
+//     Description: "Finish math assignment and submit it",
+//     DueDate: "2023-06-15",
+//     Priority: "P2",
+//     status: "incomplete"
+//   })
 
-let pro2 = new projectObj('op')
-pro2.taskArray.push({
-    TaskName: "Prepare presentation",
-    Description: "Create slides and practice delivery",
-    DueDate: "2023-06-18",
-    Priority: "P1",
-    status: "incomplete"
-  });
-projectList.push(pro1);
-projectList.push(pro2);
+// let pro2 = new projectObj('op')
+// pro2.taskArray.push({
+//     TaskName: "Prepare presentation",
+//     Description: "Create slides and practice delivery",
+//     DueDate: "2023-06-18",
+//     Priority: "P1",
+//     status: "incomplete"
+// });
+
+// projectList.push(pro1);
+// projectList.push(pro2);
+
 //Fill projects in Dom
+
 const projectFill = (array)=>{
     let projectBay = document.querySelector('.project-bay');
     projectBay.innerHTML = '';
     for(let i = 0; i<array.length; i++){
         //Add project Html
+
         let project = array[i];
         let projectName = project.projectName;
         let taskArray = project.taskArray;
         let projectDiv = document.createElement('div')
         projectDiv.classList.add('projectBox')
         projectBay.appendChild(projectDiv);
-        projectDiv.innerHTML = 
+        projectDiv.innerHTML =
         `<span>${projectName}</span>
-        <span id='projectNo-${i}' style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`    
+        <span id='projectNo-${i}' style='font-size: 20px; color:grey'>${taskArray.length} tasks remaining</span>`
 
         projectDiv.addEventListener('click',()=>{
             taskFill(taskArray);
@@ -313,13 +337,14 @@ const projectFill = (array)=>{
                 let priority = document.getElementById('priorities');
                 if (!taskName.value) {
                   alert("taskName where");
-                } 
+                }
                 else {
                   let task = taskObj(taskName.value, desc.value, due.value, priority.value, "incomplete");
                   taskArray.push(task);
                   document.getElementById(`projectNo-${i}`).innerText = `${taskArray.length} tasks remaining`
                   taskFill(taskArray);
                   console.log(taskArray);
+                  storeArr('projectList',projectList);
                   taskName.value = "";
                   desc.value = "";
                   due.value = "";
