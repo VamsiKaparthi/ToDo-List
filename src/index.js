@@ -1,12 +1,9 @@
 import './style.css';
 import 'boxicons';
 import {f,quoteGen} from './functions/headerFunctions.js';
+import { getArr,storeArr } from './functions/storageFunctions';
 
-//local storage
-function storeArr(key,array){
-    let string = JSON.stringify(array);
-    localStorage.setItem(key,string);
-}
+
 //create Projects
 function projectObj(projectName,taskArray){
     this.projectName = projectName;
@@ -23,12 +20,12 @@ quoteGen()
 
 //Control
 
+
+
 //Inbox
 let inbox;
 if(localStorage.getItem('inbox')){
-    let string = localStorage.getItem('inbox');
-    inbox = JSON.parse(string);
-    console.log(inbox);
+    inbox = getArr('inbox');
 }
 else{
     inbox = [];
@@ -38,20 +35,18 @@ else{
 //Project List
 let projectList;
 if(localStorage.getItem('projectList')){
-    let string = localStorage.getItem('projectList');
-    projectList = JSON.parse(string);
-    console.log(projectList);
+    projectList = getArr('projectList');
 }
 else{
     projectList = [];
 }
 
+
+//Tasks
 let taskObj = (TaskName,Description,DueDate,Priority,status)=>{
     return{TaskName,Description,DueDate,Priority,status};
 };
-if(localStorage.getItem('arr')){
-    console.log(localStorage.getItem('arr'));
-}
+
 //taskFill-> Will monitor the project Array constantly for changes
 function taskFill(array){
     const tasks = document.querySelector('.tasks');
@@ -219,7 +214,7 @@ submit.addEventListener('click',(e)=>{
     else{
         let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
         inbox.push(task);
-        //taskFill(empty);
+        
         taskFill(inbox);
         storeArr('inbox',inbox);
         console.log(inbox);
@@ -252,7 +247,7 @@ document.querySelector('.inbox').addEventListener('click',()=>{
         else{
             let task = taskObj(taskName.value,desc.value,due.value,priority.value,"incomplete");
             inbox.push(task);
-            //taskFill(empty);
+            
             taskFill(inbox);
             storeArr('inbox',inbox);
             console.log(inbox);
@@ -287,33 +282,7 @@ document.getElementById('submitProject').addEventListener('click',()=>{
         document.getElementById('projectAddForm').style.display='none';
     }
 })
-// let pro1 = new projectObj('hola')
-// pro1.taskArray.push({
-//     TaskName: "Buy groceries",
-//     Description: "Get milk, eggs, and bread from the supermarket",
-//     DueDate: "2023-06-12",
-//     Priority: "P3",
-//     status: "incomplete"
-//   })
-// pro1.taskArray.push({
-//     TaskName: "Complete homework",
-//     Description: "Finish math assignment and submit it",
-//     DueDate: "2023-06-15",
-//     Priority: "P2",
-//     status: "incomplete"
-//   })
 
-// let pro2 = new projectObj('op')
-// pro2.taskArray.push({
-//     TaskName: "Prepare presentation",
-//     Description: "Create slides and practice delivery",
-//     DueDate: "2023-06-18",
-//     Priority: "P1",
-//     status: "incomplete"
-// });
-
-// projectList.push(pro1);
-// projectList.push(pro2);
 
 //Fill projects in Dom
 
