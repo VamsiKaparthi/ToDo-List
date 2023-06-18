@@ -1,9 +1,10 @@
 
 //dark light mode toggle
 const body = document.querySelector('body');
-const icon = document.querySelector('i');
 const f = function(){
-    this.classList.toggle('bi-moon');
+    const icon = document.getElementById('toggleDark');
+    icon.classList.toggle('bi-moon');
+    icon.classList.toggle('bi-brightness-high');
     document.body.classList.toggle('dark');
 }
 
