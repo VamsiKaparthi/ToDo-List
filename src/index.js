@@ -7,7 +7,11 @@ function storeArr(key,array){
     let string = JSON.stringify(array);
     localStorage.setItem(key,string);
 }
-
+//create Projects
+function projectObj(projectName,taskArray){
+    this.projectName = projectName;
+    this.taskArray = taskArray || [];
+}
 //Header
 
 //dark light mode toggle
@@ -18,10 +22,21 @@ toggle.addEventListener('click',f);
 quoteGen()
 
 //Control
-let inbox = [];
-let empty = [];
-let projectList;
 
+//Inbox
+let inbox;
+if(localStorage.getItem('inbox')){
+    let string = localStorage.getItem('inbox');
+    inbox = JSON.parse(string);
+    console.log(inbox);
+}
+else{
+    inbox = [];
+}
+
+
+//Project List
+let projectList;
 if(localStorage.getItem('projectList')){
     let string = localStorage.getItem('projectList');
     projectList = JSON.parse(string);
@@ -118,6 +133,8 @@ function taskFill(array){
             console.log(e.target.parentElement.parentElement.parentElement);
             e.target.parentElement.parentElement.parentElement.style.display='none';
             array.splice(array.indexOf(e.target.parentElement.parentElement.parentElement),1)
+            storeArr('projectList',projectList);
+            storeArr('inbox',inbox);
         })
 
         //Add edit to boxicon
@@ -143,6 +160,7 @@ function taskFill(array){
                 task.DueDate = document.getElementById(`due-e-${index}`).value;
                 task.Priority = document.getElementById(`priorities-e-${index}`).value;
                 taskFill(array);
+                storeArr('inbox',inbox);
                 storeArr('projectList',projectList);
                 console.log(array);
             })
@@ -203,6 +221,7 @@ submit.addEventListener('click',(e)=>{
         inbox.push(task);
         //taskFill(empty);
         taskFill(inbox);
+        storeArr('inbox',inbox);
         console.log(inbox);
         taskName.value = "";
         desc.value = "";
@@ -210,7 +229,7 @@ submit.addEventListener('click',(e)=>{
         priority.value="";
         form.style.display='none';
         add.style.display='flex';
-        localStorage.setItem('arr',inbox);
+        
     }
 })
 taskFill(inbox);
@@ -235,6 +254,7 @@ document.querySelector('.inbox').addEventListener('click',()=>{
             inbox.push(task);
             //taskFill(empty);
             taskFill(inbox);
+            storeArr('inbox',inbox);
             console.log(inbox);
             taskName.value = "";
             desc.value = "";
@@ -247,11 +267,7 @@ document.querySelector('.inbox').addEventListener('click',()=>{
 })
 //Handle Projects
 
-//create Projects
-function projectObj(projectName,taskArray){
-    this.projectName = projectName;
-    this.taskArray = taskArray || [];
-}
+
 
 document.getElementById('addProject').addEventListener('click',()=>{
     console.log('hi');
